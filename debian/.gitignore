@@ -2,3 +2,8 @@
 debhelper-build-stamp
 g940-dkms/
 .debhelper/
+files
+*.debhelper
+*.debhelper.log
+*.substvars
+debhelper-build-stamp
