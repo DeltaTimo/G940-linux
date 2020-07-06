@@ -236,8 +236,8 @@ static void mlnx_stop_effect(struct mlnx_device *mlnxdev,
 				mlnxdev->control_effect(mlnxdev->dev,
 							mlnxdev->private, &c);
 			}
-			return;
 		}
+		break;
 	case FF_CONSTANT:
 	case FF_RAMP:
 		if (--mlnxdev->combinable_playing == 0) {
@@ -247,7 +247,7 @@ static void mlnx_stop_effect(struct mlnx_device *mlnxdev,
 			mlnxdev->control_effect(mlnxdev->dev, mlnxdev->private,
 						&c);
 		}
-		return;
+		break;
 	case FF_RUMBLE:
 		if (mlnx_is_emulated(mlnxeff)) {
 			if (--mlnxdev->combinable_playing == 0) {
@@ -266,7 +266,7 @@ static void mlnx_stop_effect(struct mlnx_device *mlnxdev,
 							mlnxdev->private, &c);
 			}
 		}
-		return;
+		break;
 	case FF_DAMPER:
 	case FF_FRICTION:
 	case FF_INERTIA:
@@ -278,10 +278,10 @@ static void mlnx_stop_effect(struct mlnx_device *mlnxdev,
 			.u.uncomb.effect = &mlnxeff->effect
 		};
 		mlnxdev->control_effect(mlnxdev->dev, mlnxdev->private, &c);
-		return;
+		break;
 	}
 	default:
-		return;
+		break;
 	}
 }
 
@@ -524,6 +524,7 @@ static unsigned long mlnx_get_update_time(struct mlnx_effect *mlnxeff,
 	case FF_RUMBLE:
 		if (mlnx_is_emulated(mlnxeff))
 			return mlnxeff->updated_at + update_rate_jiffies;
+		break;
 	case FF_DAMPER:
 	case FF_FRICTION:
 	case FF_INERTIA:
@@ -531,9 +532,9 @@ static unsigned long mlnx_get_update_time(struct mlnx_effect *mlnxeff,
 	default:
 		if (time_after_eq(mlnxeff->begin_at, now))
 			return mlnxeff->begin_at;
-
-		return mlnxeff->stop_at;
 	}
+
+	return mlnxeff->stop_at;
 }
 
 static void mlnx_schedule_playback(struct mlnx_device *mlnxdev)
@@ -752,8 +753,8 @@ static void mlnx_play_effects(struct mlnx_device *mlnxdev)
 				__set_bit(FF_EFFECT_EMULATED, &mlnxeff->flags);
 				mlnx_add_emul_periodic(mlnxeff, &strong_mag, &weak_mag,
 						       &strong_dir, &weak_dir, gain);
-				break;
 			}
+			break;
 		case FF_CONSTANT:
 		case FF_RAMP:
 			if (!mlnx_test_set_playing(mlnxeff)) {
