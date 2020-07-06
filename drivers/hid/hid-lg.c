@@ -25,7 +25,7 @@
 #include <linux/usb.h>
 #include <linux/wait.h>
 
-#include "usbhid/usbhid.h"
+#include "../usbhid/usbhid.h"
 #include "hid-ids.h"
 #include "hid-lg.h"
 #include "hid-lg4ff.h"

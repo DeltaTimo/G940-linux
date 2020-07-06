@@ -24,8 +24,8 @@
 
 #include <linux/input.h>
 #include <linux/hid.h>
-#include <linux/input/ff-memless-next.h>
 
+#include "../input/ff-memless-next.h"
 #include "hid-lg.h"
 
 #define FF_UPDATE_RATE 50

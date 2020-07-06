@@ -19,7 +19,8 @@
 #include <linux/spinlock.h>
 #include <linux/jiffies.h>
 #include <linux/fixp-arith.h>
-#include <linux/input/ff-memless-next.h>
+
+#include "ff-memless-next.h"
 
 #define FRAC_N 15
 

@@ -1,0 +1,12 @@
+PACKAGE_NAME="g940"
+PACKAGE_VERSION="#MODULE_VERSION#"
+CLEAN="rm -f *.*o"
+BUILT_MODULE_NAME[0]="hid-logitech-next"
+BUILT_MODULE_LOCATION[0]="hid/"
+DEST_MODULE_LOCATION[0]="/kernel/drivers/hid"
+MODULES_CONF_OBSOLETES[0]=hid-logitech
+BUILT_MODULE_NAME[1]="ff-memless-next"
+BUILT_MODULE_LOCATION[1]="input/"
+DEST_MODULE_LOCATION[1]="/kernel/drivers/input"
+REMAKE_INITRD="no"
+AUTOINSTALL="yes"
