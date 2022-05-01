@@ -1,0 +1,40 @@
+# This is an example PKGBUILD file. Use this as a start to creating your own,
+# and remove these comments. For more information, see 'man PKGBUILD'.
+# NOTE: Please fill out the license field for your package! If it is unknown,
+# then please put 'unknown'.
+
+# Maintainer: Timo Zuccarello <timo@zuccarello.eu>
+_pkgname=g940-driver
+pkgname=g940-driver-dkms-git
+pkgver=1.0
+pkgrel=1
+pkgdesc="A driver for the Logitech G940 Flight System."
+arch=('x86_64')
+url="https://github.com/DeltaTimo/G940-linux"
+license=('GPL')
+depends=('dkms')
+makedepends=('git')
+provides=('g940-driver')
+conflicts=('g940-driver-dkms')
+source=("git+https://github.com/DeltaTimo/G940-linux.git")
+gitdir="G940-linux"
+sha512sums=('SKIP')
+
+pkgver() {
+  cd $gitdir
+  git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+prepare() {
+  sed -i "s/#MODULE_VERSION#/$pkgver/" $gitdir/debian/g940-dkms.dkms
+}
+
+package() {
+  cd $gitdir
+  install -Dm644 debian/g940-dkms.dkms "$pkgdir/usr/src/$_pkgname-$pkgver/dkms.conf"
+  cd drivers
+  find . \! -name 'local_make.sh' -type f -exec install -Dm644 "{}" "$pkgdir/usr/src/$_pkgname-$pkgver/{}" \;
+  cd ..
+  install -dm755 "$pkgdir/etc/modprobe.d"
+  install -Dm644 blacklist-hid-logitech.conf "$pkgdir/etc/modprobe.d"
+}
