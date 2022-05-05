@@ -688,7 +688,7 @@ static int lg_g940_mapping(struct hid_input *hi, struct hid_field *field,
 	switch (usage->hid) {
 	case HID_GD_X: case HID_GD_Y:
 		/* offset 0 is joystick motion; 96 is mini-stick/hat */
-		map_abs(((field->report_offset > 0) ? ABS_TILT_X : ABS_X)
+		map_abs(((field->report_offset > 0) ? ABS_RX : ABS_X)
 			+ usage->hid - HID_GD_X);
 		return 1;
 	case HID_GD_Z:  /* rudder pedals */
@@ -715,10 +715,10 @@ static int lg_g940_mapping(struct hid_input *hi, struct hid_field *field,
 		map_abs(ABS_HAT0X + (field->report_offset - 20) / 2);
 		return 1;
 	case HID_SC_TRIM_AILERON:  /* TRIM1 (pitch trim!) */
-		map_abs(ABS_RX);
+		map_abs(ABS_TILT_X);
 		return 1;
 	case HID_SC_TRIM_PITCH:  /* TRIM2 (aileron trim!) */
-		map_abs(ABS_RY);
+		map_abs(ABS_TILT_Y);
 		return 1;
 	case HID_SC_THROTTLE:  /* two halves; index 0 is right-hand */
 		map_abs(usage->usage_index ? ABS_Z : ABS_THROTTLE);
