@@ -6,17 +6,17 @@
 # Maintainer: Timo Zuccarello <timo@zuccarello.eu>
 _pkgname=g940-driver
 pkgname=g940-driver-dkms-git
-pkgver=1.0
+pkgver=1.0.0
 pkgrel=1
 pkgdesc="A driver for the Logitech G940 Flight System."
 arch=('x86_64')
-url="https://github.com/DeltaTimo/G940-linux"
+url="https://github.com/franzitrone/G940-linux"
 license=('GPL')
 depends=('dkms')
 makedepends=('git')
 provides=('g940-driver')
 conflicts=('g940-driver-dkms')
-source=("git+https://github.com/DeltaTimo/G940-linux.git")
+source=("git+https://github.com/franzitrone/G940-linux.git")
 gitdir="G940-linux"
 sha512sums=('SKIP')
 
